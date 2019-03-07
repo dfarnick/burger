@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(54, 53, 53);
+}
+
+.waves-effect.waves-orange .waves-ripple {
+    /* The alpha value allows the text and background color
+    of the button to still show through. */
+     background-color: rgba(9, 94, 173, 0.65);
+   }
