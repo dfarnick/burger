@@ -1,9 +1,23 @@
-body {
-    background-color: rgb(54, 53, 53);
+.mastHead {
+    text-align:center;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;   
+    
 }
-
-.waves-effect.waves-orange .waves-ripple {
-    /* The alpha value allows the text and background color
-    of the button to still show through. */
-     background-color: rgba(9, 94, 173, 0.65);
+#eaten{
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+#grill{
+    text-align:center;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+.bottomButton{
+    margin: 0 auto;
+    float: left;    
+}
+#buttons {
+    color:white;
+    font-size: 12;
+    border-radius: 5px;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    background-color: rgba(9, 94, 173, 0.65);
    }

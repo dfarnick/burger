@@ -1,74 +1,93 @@
 {{!--This is tough... 09 day planner helped figure this out.  --}}
 <div class="container">
-<h1>Eat-Da-Burger!</h1><hr>
-<h3>Ding! Orders Up!</h3>
+    <div class="mastHead">
+        <h1>Eat-Da-Burger!</h1>
+        <iframe src="https://giphy.com/embed/12N7HsEBduWvsc" width="480" height="270" frameBorder="0"
+            class="giphy-embed" allowFullScreen></iframe>
+        <p><a href="https://giphy.com/gifs/bobs-burgers-tina-belcher-12N7HsEBduWvsc"></a></p>
+    </div>
+    <hr>
+    <div class="row">
+        <div id="eaten" class="col-sm">
+            <h4>Orders Up!</h4>
+            {{#each burgersData}}
+            {{#unless devoured}}
+            {{this.id}}. {{this.burger_name}}
+            <div style="text-align:right;">
+                <button data-id={{this.id}} id="buttons" class="devourBurger"> Devour it!</button>
+            </div>
+            <hr>
+            {{/unless}}
+            {{/each}}
+        </div>
 
-{{#each burgersData}}
-{{#unless devoured}}
-<p>
-    {{this.id}}. {{this.burger_name}}
-    <button data-id="{{this.id}}" class="devourBurger"> Devour it!</button>
-</p>
-{{/unless}}
-{{/each}}
+        <div class="col-sm"></div>
 
-
-<h3>Garbage</h3>
-  {{#each burgersData}}
-    {{#if devoured}}
-      <div>{{this.id}}. {{this.burger_name}}</div>
-    {{/if}}
-  {{/each}}
-
-        <h3>Making Meat</h3>
-            <form id="burgerBuilder">
-                <div class="form-group">
-                    <textarea class="form-control pt-3 pl-3 pb-3" id="input" rows="1"
-                        placeholder="MMmmmmm burgerss!"></textarea>
-                </div>
-                <div>
-                    <button <a href="#" type="submit" class="waves-effect waves-light btn-large">Make A New Burger!</a></button>
-                </div>
-                
+        <div class="col-sm">
+            <div id="eaten">
+                <h4>Vanished</h4>
+                <ul>
+                    {{#each burgersData}}
+                    {{#if devoured}}
+                    <li>
+                        <div>{{this.id}}. {{this.burger_name}}</div>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="grill">
+        <h3>Head Chef</h3>
+        <form id="burgerBuilder">
+            <div class="form-group">
+                <textarea class="form-control pt-3 pl-3 pb-3" id="input" rows="1"
+                    placeholder="MMmmmmm burgerss!"></textarea>
+            </div>
+    </div>
+    <div style="text-align:center;">
+        <button id="buttons" <a href="#" type="submit" class="waves-effect waves-light btn-large">Make A New
+            Burger!</a></button>
+    </div>
 </div>
 
-
-    <script type="text/javascript">
-        //==========================clickhandlers=========================
-        //devour burger button
-        $(".devourBurger").on("click", function (event) {            
-            event.preventDefault();
-            // get the id of the burger
-            var id = $(this).data("id");
-            //console.log("Devour " + id)
-            //send the PUT request
-            $.ajax("/api/burger/" + id, {
-                type: "PUT"
-            }).then(
-                function () {
-                    // Reload the page to get the updated list
-                    location.reload();
-                }
-            );
-        })
-        
-        $("#burgerBuilder").on("submit", function (event) {
-            // console.log("New burger anyone?")
-            event.preventDefault();
-            var burger_name = $("#input").val().trim()
-            var requestBody = {
-                burger_name: burger_name
+<script type="text/javascript">
+    //==========================clickhandlers=========================
+    //devour burger button
+    $(".devourBurger").on("click", function (event) {
+        event.preventDefault();
+        // get the id of the burger
+        var id = $(this).data("id");
+        //console.log("Devour " + id)
+        //send the PUT request
+        $.ajax("/api/burger/" + id, {
+            type: "PUT"
+        }).then(
+            function () {
+                // Reload the page to get the updated list
+                location.reload();
             }
-            //send the POST request
-            $.ajax("/api/burger", {
-                type: "POST",
-                data: requestBody
-            }).then(
-                function () {
-                    console.log("a new burger was made!");
-                    // Reload the page to get the updated list
-                    location.reload();
-                }
-            );
-        })
-    </script>
+        );
+    })
+
+    $("#burgerBuilder").on("submit", function (event) {
+        // console.log("New burger anyone?")
+        event.preventDefault();
+        var burger_name = $("#input").val().trim()
+        var requestBody = {
+            burger_name: burger_name
+        }
+        //send the POST request
+        $.ajax("/api/burger", {
+            type: "POST",
+            data: requestBody
+        }).then(
+            function () {
+                console.log("a new burger was made!");
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
+    })
+</script>
